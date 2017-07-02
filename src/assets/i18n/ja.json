@@ -1,0 +1,11 @@
+{
+    "TITLE_CHANGE_ALERT":{
+        "TITLE":"タイトル変更",
+        "SAVE":" 変更",
+        "CANCEL":"キャンセル",
+        "PLACEHOLDER":"タイトル"
+    },
+    "EDIT_PAGE":{
+        "UNTITLED":"タイトル未定"
+    }
+}

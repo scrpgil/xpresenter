@@ -1,0 +1,10 @@
+page-play {
+    ion-grid, ion-row{
+        height:100%;
+        background-color: #fff;
+        text-align: center;
+    }
+    .presen-content{
+        font-size: calc(18px + 4.25vw);
+    }
+}

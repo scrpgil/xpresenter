@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+    <!--<ion-buttons start>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>-->
+    <ion-title class="presen-title" (click)="changeTitle()">
+      <ion-input text-center type="text" placeholder="{{'EDIT_PAGE.UNTITLED' | translate }}" [value]="title"></ion-input>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <textarea class="textarea" [(ngModel)]="content"></textarea>
+  <ion-fab right bottom>
+    <button color="primary" ion-fab (click)="play()"><ion-icon name="play"></ion-icon></button>
+    <!--<button ion-fab color="primary"><ion-icon name="arrow-dropleft"></ion-icon></button>-->
+    <!--<ion-fab-list side="top">
+      <button ion-fab><ion-icon name="logo-facebook"></ion-icon></button>
+      <button ion-fab><ion-icon name="logo-twitter"></ion-icon></button>
+      <button ion-fab><ion-icon name="logo-vimeo"></ion-icon></button>
+      <button ion-fab><ion-icon name="logo-googleplus"></ion-icon></button>
+    </ion-fab-list>-->
+  </ion-fab>
+</ion-content>
