@@ -22,7 +22,6 @@ export class MyApp {
     this.initializeApp();
 
     translate.setDefaultLang("ja");
-    translate.use(translate.getBrowserLang());
 
     // used for an example of ngFor and navigation
     this.pages = [

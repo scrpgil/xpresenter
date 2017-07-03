@@ -12,10 +12,10 @@ import { PresenEditProvider } from '../../providers/presen-edit/presen-edit';
 export class EditPage {
     title:string = "";
     content:string = "";
-    title_change_alert_title:string = "";
-    title_change_alert_save:string = "";
-    title_change_alert_cancel:string = "";
-    title_change_alert_placeholder:string = "";
+    title_change_alert_title:string = "Change Title";
+    title_change_alert_save:string = "Save";
+    title_change_alert_cancel:string = "Cancel";
+    title_change_alert_placeholder:string = "title";
     constructor(
         public navCtrl: NavController,
         public alertCtrl: AlertController,
@@ -23,23 +23,31 @@ export class EditPage {
         public translate: TranslateService
     ) {
         this.translate.setDefaultLang("ja");
-        this.translate.use(translate.getBrowserLang());
-        this.translate.get("TITLE_CHANGE_ALERT.TITLE").subscribe((res: string) => {
-            this.title_change_alert_title = res;
+        this.translate.get("TITLE").subscribe((res: string) => {
+            if(res != ""){
+                this.title_change_alert_title = res;
+            }
         });
         this.translate.get("TITLE_CHANGE_ALERT.SAVE").subscribe((res: string) => {
-            this.title_change_alert_save = res;
+            if(res != ""){
+                this.title_change_alert_save = res;
+            }
         });
         this.translate.get("TITLE_CHANGE_ALERT.CANCEL").subscribe((res: string) => {
-            this.title_change_alert_cancel = res;
+            if(res != ""){
+                this.title_change_alert_cancel = res;
+            }
         });
         this.translate.get("TITLE_CHANGE_ALERT.PLACEHOLDER").subscribe((res: string) => {
-            this.title_change_alert_placeholder = res;
+            if(res != ""){
+                this.title_change_alert_placeholder = res;
+            }
         });
     }
     changeTitle(){
+        var alert_title = this.title_change_alert_title;
         let prompt = this.alertCtrl.create({
-            title: this.title_change_alert_title,
+            title: alert_title,
             inputs: [
                 {
                     name: "title",
