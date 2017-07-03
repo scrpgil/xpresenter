@@ -1,4 +1,4 @@
-ionic build browser --prod
+ionic cordova build browser
 cd platforms/browser/www
 git init
 git add . 

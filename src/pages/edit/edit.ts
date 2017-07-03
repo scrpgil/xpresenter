@@ -22,6 +22,8 @@ export class EditPage {
         public presenEditProvider: PresenEditProvider,
         public translate: TranslateService
     ) {
+        this.translate.setDefaultLang("ja");
+        this.translate.use(translate.getBrowserLang());
         this.translate.get("TITLE_CHANGE_ALERT.TITLE").subscribe((res: string) => {
             this.title_change_alert_title = res;
         });
