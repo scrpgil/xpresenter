@@ -90,7 +90,6 @@ export class EditPage {
                     handler: data => {
                         this.title = data.title;
                         this.save();
-                        this.events.publish('title:updated', this.id, this.title);
                         console.log('Saved clicked');
                     }
                 }
@@ -108,6 +107,9 @@ export class EditPage {
         }
     }
     save(){
-        this.storage.set('slide'+this.id, JSON.stringify({title:this.title,content:this.content}));
+        if(this.id != 999){
+            this.events.publish('title:updated', this.id, this.title);
+            this.storage.set('slide'+this.id, JSON.stringify({title:this.title,content:this.content}));
+        }
     }
 }
