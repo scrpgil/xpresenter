@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { Events, NavController, AlertController, NavParams } from 'ionic-angular';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { PlayPage } from '../../pages/play/play';
 import { PresenEditProvider } from '../../providers/presen-edit/presen-edit';
+import { Storage } from '@ionic/storage';
 
 @Component({ 
     selector: 'page-edit',
@@ -12,18 +13,41 @@ import { PresenEditProvider } from '../../providers/presen-edit/presen-edit';
 export class EditPage {
     title:string = "";
     content:string = "";
+    id:number = 999;
     title_change_alert_title:string = "Change Title";
     title_change_alert_save:string = "Save";
     title_change_alert_cancel:string = "Cancel";
     title_change_alert_placeholder:string = "title";
     constructor(
+        private storage: Storage,
+        private events: Events,
         public navCtrl: NavController,
         public alertCtrl: AlertController,
         public presenEditProvider: PresenEditProvider,
-        public translate: TranslateService
+        public translate: TranslateService,
+        public navParams: NavParams
     ) {
+        if(undefined === this.navParams.data.id){
+            this.id = 999;
+        }else{
+            this.id = this.navParams.data.id;
+        }
+        if(undefined === this.navParams.data.title){
+            this.translate.get("EDIT_PAGE.DEFAULT_TITLE").subscribe((res: string) => {
+                this.title = res;
+            });
+        }else{
+            this.title = this.navParams.data.title;
+        }
+        if(undefined === this.navParams.data.content){
+            this.translate.get("EDIT_PAGE.DEFAULT_CONTENT").subscribe((res: string) => {
+                this.content = res;
+            });
+        }else{
+            this.content = this.navParams.data.content;
+        }
         this.translate.setDefaultLang("ja");
-        this.translate.get("TITLE").subscribe((res: string) => {
+        this.translate.get("TITLE_CHANGE_ALERT.TITLE").subscribe((res: string) => {
             if(res != ""){
                 this.title_change_alert_title = res;
             }
@@ -45,9 +69,8 @@ export class EditPage {
         });
     }
     changeTitle(){
-        var alert_title = this.title_change_alert_title;
         let prompt = this.alertCtrl.create({
-            title: alert_title,
+            title: this.title_change_alert_title,
             inputs: [
                 {
                     name: "title",
@@ -66,6 +89,8 @@ export class EditPage {
                     text: this.title_change_alert_save,
                     handler: data => {
                         this.title = data.title;
+                        this.save();
+                        this.events.publish('title:updated', this.id, this.title);
                         console.log('Saved clicked');
                     }
                 }
@@ -74,11 +99,15 @@ export class EditPage {
         prompt.present();
     }
     play(){
+        this.save();
         var slides = this.presenEditProvider.generateSlides(this.title, this.content);
         if(slides != null){
             if(slides.length > 0){
                 this.navCtrl.push(PlayPage,{slides: slides});
             }
         }
+    }
+    save(){
+        this.storage.set('slide'+this.id, JSON.stringify({title:this.title,content:this.content}));
     }
 }
