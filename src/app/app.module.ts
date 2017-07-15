@@ -9,7 +9,7 @@ import { HttpModule, Http } from '@angular/http';
 
 import { MyApp } from './app.component';
 import { EditPage } from '../pages/edit/edit';
-import { PlayPage } from '../pages/play/play';
+import { PlayPageModule} from '../pages/play/play.module';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -19,13 +19,13 @@ import { PresenEditProvider } from '../providers/presen-edit/presen-edit';
     declarations: [
         MyApp,
         EditPage,
-        PlayPage,
     ],
     imports: [
         BrowserModule,
         HttpModule,
         IonicModule.forRoot(MyApp),
         IonicStorageModule.forRoot(),
+        PlayPageModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -38,7 +38,6 @@ import { PresenEditProvider } from '../providers/presen-edit/presen-edit';
     entryComponents: [
         MyApp,
         EditPage,
-        PlayPage
     ],
     providers: [
         StatusBar,
